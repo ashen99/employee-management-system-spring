@@ -22,7 +22,23 @@ public class EmployeeService {
         return employeeRepository.findAll();
     }
 
-    
+    public Employee getEmployeeById(String id){
+        return employeeRepository.findById(id).get();
+    }
+
+    public Employee updateEmployee(Employee employeeRequest){
+        Employee existingEmployee = employeeRepository.findById(employeeRequest.getId()).get();
+        existingEmployee.setFirstName(employeeRequest.getFirstName());
+        existingEmployee.setLastName(employeeRequest.getLastName());
+        existingEmployee.setSalary(employeeRequest.getSalary());
+        existingEmployee.setEmail(employeeRequest.getEmail());
+        return employeeRepository.save(existingEmployee);
+    }
+
+    public String deleteEmployee(String id){
+        employeeRepository.deleteById(id);
+        return id+" employee deleted";
+    }
 
 
 
